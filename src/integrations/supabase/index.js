@@ -26,8 +26,11 @@ const fromSupabase = async (query) => {
 | created_at | string  | timestamp with time zone| true     |
 | patterns   | string  | text                    | true     |
 | id         | string  | uuid                    | true     |
+| file_name  | string  | text                    | true     |
 
 */
+
+// Hooks for Patterns table
 
 export const usePatterns = () => useQuery({
     queryKey: ['Patterns'],
