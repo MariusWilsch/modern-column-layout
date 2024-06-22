@@ -13,12 +13,17 @@ const Index = () => {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const { data: patterns, isLoading, error } = usePatterns();
+  const [expandedPattern, setExpandedPattern] = useState(null);
 
   const handleSend = () => {
     if (inputValue.trim() !== "") {
       setMessages([...messages, inputValue]);
       setInputValue("");
     }
+  };
+
+  const handleExpandClick = (index) => {
+    setExpandedPattern(index === expandedPattern ? null : index);
   };
 
   return (
@@ -66,14 +71,23 @@ const Index = () => {
             <p>Error loading patterns</p>
           ) : (
             <Accordion type="single" collapsible className="w-full">
-              {patterns.map((pattern, index) => (
-                <AccordionItem key={pattern.id} value={`item-${index}`}>
-                  <AccordionTrigger>Pattern {index + 1}</AccordionTrigger>
-                  <AccordionContent>
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{pattern.patterns}</ReactMarkdown>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
+              {patterns.map((pattern, index) => {
+                const isExpanded = expandedPattern === index;
+                const content = isExpanded ? pattern.patterns : pattern.patterns.slice(0, 500) + (pattern.patterns.length > 500 ? '...' : '');
+                return (
+                  <AccordionItem key={pattern.id} value={`item-${index}`}>
+                    <AccordionTrigger>Pattern {index + 1}</AccordionTrigger>
+                    <AccordionContent>
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+                      {pattern.patterns.length > 500 && (
+                        <Button variant="link" onClick={() => handleExpandClick(index)}>
+                          {isExpanded ? 'Show Less' : 'Show More'}
+                        </Button>
+                      )}
+                    </AccordionContent>
+                  </AccordionItem>
+                );
+              })}
             </Accordion>
           )}
         </div>
