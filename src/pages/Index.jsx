@@ -18,8 +18,11 @@ const Index = () => {
             </div>
           </div>
         </div>
-        <div className="flex-1 bg-green-200 border border-gray-300 rounded-lg m-2 flex items-center justify-center">
-          <h2 className="text-black">Column 2</h2>
+        <div className="flex-1 bg-green-200 border border-gray-300 rounded-lg m-2 flex flex-col items-start justify-start p-4">
+          <h2 className="text-black mb-4">Choose your pattern</h2>
+          <div className="flex items-center justify-center w-full h-full">
+            <h2 className="text-black">Column 2</h2>
+          </div>
         </div>
       </div>
     </div>
