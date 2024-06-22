@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { usePatterns } from '../integrations/supabase/index.js';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const Index = () => {
   const [messages, setMessages] = useState([]);
@@ -69,7 +70,7 @@ const Index = () => {
                 <AccordionItem key={pattern.id} value={`item-${index}`}>
                   <AccordionTrigger>Pattern {index + 1}</AccordionTrigger>
                   <AccordionContent>
-                    <ReactMarkdown>{pattern.patterns}</ReactMarkdown>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{pattern.patterns}</ReactMarkdown>
                   </AccordionContent>
                 </AccordionItem>
               ))}
