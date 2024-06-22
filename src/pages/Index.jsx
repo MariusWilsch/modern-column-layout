@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Send, User } from "lucide-react";
@@ -6,6 +6,7 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { usePatterns } from '../integrations/supabase/index.js';
+import ReactMarkdown from 'react-markdown';
 
 const Index = () => {
   const [messages, setMessages] = useState([]);
@@ -68,7 +69,7 @@ const Index = () => {
                 <AccordionItem key={pattern.id} value={`item-${index}`}>
                   <AccordionTrigger>Pattern {index + 1}</AccordionTrigger>
                   <AccordionContent>
-                    <Input value={pattern.patterns} readOnly />
+                    <ReactMarkdown>{pattern.patterns}</ReactMarkdown>
                   </AccordionContent>
                 </AccordionItem>
               ))}
