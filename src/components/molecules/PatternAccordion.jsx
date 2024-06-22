@@ -11,7 +11,7 @@ import remarkParse from "remark-parse";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const PatternAccordion = ({ patterns, expandedPattern, handleExpandClick }) => (
-  <ScrollArea className="h-[500px] w-full overflow-y-auto">
+  <ScrollArea className="h-full w-full overflow-y-auto">
     <Accordion type="single" collapsible className="w-full">
       {patterns.map((pattern, index) => {
         const isExpanded = expandedPattern === index;
