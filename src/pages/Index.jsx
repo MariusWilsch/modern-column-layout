@@ -10,10 +10,10 @@ const Index = () => {
   return (
     <div className="h-screen w-screen flex items-center justify-center bg-gray-100">
       <div className="flex w-[90%] h-5/6">
-        <div id="column1" className="flex-1 bg-white border border-gray-300 rounded-lg m-2 flex flex-col items-center justify-between">
-          <h2 className="text-black mb-4">Chat Input</h2>
-          <Label className="text-gray-600 mb-2">Type your input here...</Label>
-          <Separator className="mb-4" />
+        <div id="column1" className="flex-1 bg-white border border-gray-300 rounded-lg m-2 flex flex-col items-start justify-start">
+          <h2 className="text-black mb-2 self-start mt-4 ml-4">Chat Input</h2>
+          <Label className="text-gray-600 mb-2 self-start ml-4">Type your input here...</Label>
+          <Separator className="mb-4 w-full" />
           <div className="flex items-center w-full px-4 mb-4">
             <div className="relative flex-1">
               <Input className="w-full pr-10" placeholder="Type your message..." />
