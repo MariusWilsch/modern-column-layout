@@ -27,7 +27,7 @@ const Index = () => {
             <Separator className="mb-4 w-full" />
             <div className="flex flex-col space-y-2 w-full">
               {messages.map((message, index) => (
-                <div key={index} className="flex items-center space-x-2">
+                <div key={index} className="bg-gray-200 rounded-lg p-2 flex items-center space-x-2">
                   <User className="h-4 w-4 text-gray-600" />
                   <span className="text-black">{message}</span>
                 </div>
