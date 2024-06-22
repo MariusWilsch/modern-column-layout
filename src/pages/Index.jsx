@@ -23,7 +23,7 @@ const Index = () => {
             </div>
           </div>
         </div>
-        <div id="column2" className="flex-1 bg-green-200 border border-gray-300 rounded-lg m-2 flex flex-col items-start justify-start p-4">
+        <div id="column2" className="flex-1 bg-white border border-gray-300 rounded-lg m-2 flex flex-col items-start justify-start p-4">
           <h2 className="text-black mb-4">Patterns</h2>
           <Label className="text-gray-600 mb-2">Choose from pre-written patterns</Label>
           <Separator className="mb-4" />
