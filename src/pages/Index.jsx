@@ -1,14 +1,15 @@
-// Update this page (the content is just a fallback if you fail and example)
+import React from 'react';
 
 const Index = () => {
   return (
-    <div className="h-screen w-screen flex items-center justify-center">
-      {/* Update with components here - default to put new layout sections as separate components in the components folder, and import them here */}
-      <div>
-        <h1 className="text-3xl text-center">Your Blank Canvas</h1>
-        <p className="text-center">
-          Chat with the agent to start making edits.
-        </p>
+    <div className="h-screen w-screen flex items-center justify-center bg-gray-100">
+      <div className="flex w-3/4 h-5/6">
+        <div className="flex-1 bg-white border border-gray-300 rounded-lg m-2 flex items-center justify-center">
+          <h2 className="text-black">Column 1</h2>
+        </div>
+        <div className="flex-1 bg-green-200 border border-gray-300 rounded-lg m-2 flex items-center justify-center">
+          <h2 className="text-black">Column 2</h2>
+        </div>
       </div>
     </div>
   );
