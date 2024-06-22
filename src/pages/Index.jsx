@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Send } from "lucide-react";
+import { Send, User } from "lucide-react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 
 const Index = () => {
+  const [messages, setMessages] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+
+  const handleSend = () => {
+    if (inputValue.trim() !== "") {
+      setMessages([...messages, inputValue]);
+      setInputValue("");
+    }
+  };
+
   return (
     <div className="h-screen w-screen flex items-center justify-center bg-gray-100">
       <div className="flex w-[90%] h-5/6">
@@ -15,11 +25,28 @@ const Index = () => {
             <h2 className="text-black mb-2">Chat Input</h2>
             <Label className="text-gray-600 mb-2">Type your input here...</Label>
             <Separator className="mb-4 w-full" />
+            <div className="flex flex-col space-y-2 w-full">
+              {messages.map((message, index) => (
+                <div key={index} className="flex items-center space-x-2">
+                  <User className="h-4 w-4 text-gray-600" />
+                  <span className="text-black">{message}</span>
+                </div>
+              ))}
+            </div>
           </div>
           <div className="flex items-center w-full px-4 mb-4">
             <div className="relative flex-1">
-              <Input className="w-full pr-10" placeholder="Type your message..." />
-              <Button variant="outline" className="absolute right-0 top-0 h-full rounded-l-none">
+              <Input 
+                className="w-full pr-10" 
+                placeholder="Type your message..." 
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+              <Button 
+                variant="outline" 
+                className="absolute right-0 top-0 h-full rounded-l-none"
+                onClick={handleSend}
+              >
                 <Send className="h-4 w-4" />
               </Button>
             </div>
