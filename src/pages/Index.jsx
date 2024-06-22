@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Send, User } from "lucide-react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { usePatterns } from '../integrations/supabase/index.js';
 
 const Index = () => {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const { data: patterns, isLoading, error } = usePatterns();
 
   const handleSend = () => {
     if (inputValue.trim() !== "") {
@@ -56,26 +58,22 @@ const Index = () => {
           <h2 className="text-black mb-4">Patterns</h2>
           <Label className="text-gray-600 mb-2">Choose from pre-written patterns</Label>
           <Separator className="mb-4" />
-          <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="item-1">
-                <AccordionTrigger>Option 1</AccordionTrigger>
-                <AccordionContent>
-                  Content for Option 1
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger>Option 2</AccordionTrigger>
-                <AccordionContent>
-                  Content for Option 2
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger>Option 3</AccordionTrigger>
-                <AccordionContent>
-                  Content for Option 3
-                </AccordionContent>
-              </AccordionItem>
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : error ? (
+            <p>Error loading patterns</p>
+          ) : (
+            <Accordion type="single" collapsible className="w-full">
+              {patterns.map((pattern, index) => (
+                <AccordionItem key={pattern.id} value={`item-${index}`}>
+                  <AccordionTrigger>Pattern {index + 1}</AccordionTrigger>
+                  <AccordionContent>
+                    <Input value={pattern.patterns} readOnly />
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
             </Accordion>
+          )}
         </div>
       </div>
     </div>
