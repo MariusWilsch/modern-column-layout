@@ -56,8 +56,7 @@ const Index = () => {
           <h2 className="text-black mb-4">Patterns</h2>
           <Label className="text-gray-600 mb-2">Choose from pre-written patterns</Label>
           <Separator className="mb-4" />
-          <div className="flex items-center justify-center w-full h-full">
-            <Accordion type="single" collapsible className="w-full">
+          <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1">
                 <AccordionTrigger>Option 1</AccordionTrigger>
                 <AccordionContent>
@@ -77,7 +76,6 @@ const Index = () => {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
-          </div>
         </div>
       </div>
     </div>
