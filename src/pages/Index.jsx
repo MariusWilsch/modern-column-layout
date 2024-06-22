@@ -22,7 +22,7 @@ const Index = () => {
         <div id="column2" className="flex-1 bg-green-200 border border-gray-300 rounded-lg m-2 flex flex-col items-start justify-start p-4">
           <h2 className="text-black mb-4"></h2>
           <div className="flex items-center justify-center w-full h-full">
-            <Accordion type="single" collapsible>
+            <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1">
                 <AccordionTrigger>Option 1</AccordionTrigger>
                 <AccordionContent>
