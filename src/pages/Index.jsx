@@ -2,14 +2,27 @@ import React, { useState } from "react";
 import { usePatterns } from "../integrations/supabase/index.js";
 import ChatColumn from "@/components/organisms/ChatColumn";
 import PatternColumn from "@/components/organisms/PatternColumn";
+import { useToast } from "@/components/ui/use-toast";
 
 const Index = () => {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const { data: patterns, isLoading, error } = usePatterns();
   const [expandedPattern, setExpandedPattern] = useState(null);
+  const [selectedPattern, setSelectedPattern] = useState(null);
+  const { toast } = useToast();
 
   const handleSend = () => {
+    if (!selectedPattern) {
+      toast({
+        title: "Please choose a pattern first.",
+        style: {
+          border: "1px solid red",
+        },
+      });
+      return;
+    }
+
     if (inputValue.trim() !== "") {
       setMessages([...messages, inputValue]);
       setInputValue("");
@@ -35,6 +48,7 @@ const Index = () => {
           error={error}
           expandedPattern={expandedPattern}
           handleExpandClick={handleExpandClick}
+          setSelectedPattern={setSelectedPattern}
         />
       </div>
     </div>

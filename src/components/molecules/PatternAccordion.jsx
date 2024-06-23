@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
 import { Pagination } from "@/components/ui/pagination";
+import { Separator } from "@/components/ui/separator";
 import {
   Dialog,
   DialogContent,
@@ -48,12 +49,24 @@ const markdownStyles = {
   a: { color: "black", textDecoration: "underline" },
 };
 
-const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
+const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelectedPattern }) => {
   const [currentPage, setCurrentPage] = React.useState(1);
+  const [selectedCheckboxes, setSelectedCheckboxes] = React.useState([]);
+  
   const itemsPerPage = 5;
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
+  };
+
+  const handleCheckboxChange = (patternId) => {
+    setSelectedCheckboxes((prevSelected) => {
+      if (prevSelected.includes(patternId)) {
+        return prevSelected.filter((id) => id !== patternId);
+      } else {
+        return [...prevSelected, patternId];
+      }
+    });
   };
 
   const paginatedPatterns = patterns.slice(
@@ -107,20 +120,24 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
             <TableRow key={pattern.id}>
               <TableCell>
                 <div className="flex items-center space-x-2">
-                  <Checkbox />
+                  <Checkbox
+                    checked={selectedCheckboxes.includes(pattern.id)}
+                    onCheckedChange={() => handleCheckboxChange(pattern.id)}
+                  />
                   <Dialog>
                     <DialogTrigger asChild>
                       <Button variant="ghost" size="icon">
                         <Eye className="h-4 w-4" />
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="min-w-[60%] h-[60vh] overflow-auto">
+                    <DialogContent className="min-w-[60%] h-[60vh] overflow-auto p-4 bg-white text-black">
                       <DialogHeader>
                         <DialogTitle className="text-4xl mb-2">
                           {pattern.file_name.replace(/_/g, ' ')}
                         </DialogTitle>
+                        <Separator className="my-4" />
                         <DialogDescription>
-                          {renderMarkdown(pattern.patterns)}
+                          {renderMarkdown(pattern.patterns || '')}
                         </DialogDescription>
                       </DialogHeader>
                     </DialogContent>
@@ -146,3 +163,15 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
 };
 
 export default PatternTable;
+
+// Ensure the PatternTable component receives the setSelectedPattern prop
+const PatternColumn = ({ patterns, expandedPattern, handleExpandClick, setSelectedPattern }) => {
+  return (
+    <PatternTable
+      patterns={patterns}
+      expandedPattern={expandedPattern}
+      handleExpandClick={handleExpandClick}
+      setSelectedPattern={setSelectedPattern}
+    />
+  );
+};
