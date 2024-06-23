@@ -10,14 +10,6 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
 import { Separator } from "@/components/ui/separator";
 import {
   Dialog,
@@ -63,14 +55,7 @@ const markdownStyles = {
 
 const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelectedPattern }) => {
   console.log("Patterns data: ", patterns);
-  const [currentPage, setCurrentPage] = React.useState(1);
   const [selectedCheckboxes, setSelectedCheckboxes] = React.useState([]);
-  
-  const itemsPerPage = 5;
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
 
   const handleCheckboxChange = (patternId) => {
     setSelectedCheckboxes((prevSelected) => {
@@ -81,11 +66,6 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
       }
     });
   };
-
-  const paginatedPatterns = patterns.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
 
   const renderMarkdown = (markdown) => {
     return (
@@ -119,7 +99,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full overflow-y-auto">
       <Table>
         <TableHeader>
           <TableRow>
@@ -129,7 +109,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
           </TableRow>
         </TableHeader>
         <TableBody>
-          {paginatedPatterns.map((pattern, index) => (
+          {patterns.map((pattern, index) => (
             <TableRow key={pattern.id}>
               <TableCell>
                 <div className="flex items-center space-x-2">
@@ -166,23 +146,6 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
           ))}
         </TableBody>
       </Table>
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious href="#" onClick={() => handlePageChange(currentPage - 1)} />
-          </PaginationItem>
-          {[...Array(Math.ceil(patterns.length / itemsPerPage)).keys()].map((page) => (
-            <PaginationItem key={page}>
-              <PaginationLink href="#" onClick={() => handlePageChange(page + 1)}>
-                {page + 1}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
-          <PaginationItem>
-            <PaginationNext href="#" onClick={() => handlePageChange(currentPage + 1)} />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
     </div>
   );
 };
