@@ -64,9 +64,11 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
   const handleCheckboxChange = (patternId) => {
     setSelectedCheckbox((prevSelected) => {
       if (prevSelected === patternId) {
-        return null; // Uncheck if the same checkbox is clicked
+        setSelectedPattern(null); // Uncheck if the same checkbox is clicked
+        return null;
       } else {
-        return patternId; // Select the new checkbox
+        setSelectedPattern(patternId); // Select the new checkbox
+        return patternId;
       }
     });
   };
