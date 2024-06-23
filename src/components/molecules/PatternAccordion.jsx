@@ -122,7 +122,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     checked={selectedCheckboxes.includes(pattern.id)}
-                    onChange={() => handleCheckboxChange(pattern.id)}
+                    onCheckedChange={() => handleCheckboxChange(pattern.id)}
                   />
                   <Dialog>
                     <DialogTrigger asChild>
