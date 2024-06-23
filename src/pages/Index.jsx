@@ -27,6 +27,7 @@ const Index = () => {
         <div className="flex w-[90%] h-5/6">
           <ChatColumn
             messages={messages}
+            setMessages={setMessages}
             inputValue={inputValue}
             setInputValue={setInputValue}
             handleSend={handleSend}
