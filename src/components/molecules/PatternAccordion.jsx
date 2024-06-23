@@ -4,6 +4,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronsUpDown } from "lucide-react";
 import { Pagination } from "@/components/ui/pagination";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -36,9 +44,21 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
                 {pattern.patterns.split(" ").slice(0, 10).join(" ")}
               </TableCell>
               <TableCell>
-                <Button onClick={() => handleExpandClick(index)}>
-                  <ChevronsUpDown className="h-4 w-4" />
-                </Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button>
+                      <ChevronsUpDown className="h-4 w-4" />
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="w-[80vw] h-[60vh] overflow-auto">
+                    <DialogHeader>
+                      <DialogTitle>{pattern.file_name}</DialogTitle>
+                      <DialogDescription>
+                        {pattern.patterns}
+                      </DialogDescription>
+                    </DialogHeader>
+                  </DialogContent>
+                </Dialog>
               </TableCell>
             </TableRow>
           ))}
