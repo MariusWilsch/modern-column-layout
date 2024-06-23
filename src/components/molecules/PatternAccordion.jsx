@@ -2,7 +2,7 @@ import React from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, ChevronsUpDown } from "lucide-react";
+import { ChevronDown, ChevronsUpDown, Eye, Trash } from "lucide-react";
 import { Pagination } from "@/components/ui/pagination";
 import {
   Dialog,
@@ -33,7 +33,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
           <TableRow>
             <TableHead>Pattern Name</TableHead>
             <TableHead>Short Summary</TableHead>
-            <TableHead className="w-[50px]">Actions</TableHead>
+            <TableHead className="w-[150px]">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -43,10 +43,16 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
               <TableCell>
                 {pattern.patterns.split(" ").slice(0, 10).join(" ")}
               </TableCell>
-              <TableCell>
+              <TableCell className="flex space-x-2">
+                <Button variant="ghost" size="icon">
+                  <Trash className="h-4 w-4" />
+                </Button>
+                <Button variant="ghost" size="icon">
+                  <Eye className="h-4 w-4" />
+                </Button>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button>
+                    <Button variant="ghost" size="icon">
                       <ChevronsUpDown className="h-4 w-4" />
                     </Button>
                   </DialogTrigger>
