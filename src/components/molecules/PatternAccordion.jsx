@@ -22,6 +22,11 @@ import {
 } from "@/components/ui/dialog";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { Label } from "@/components/ui/label";
+import Loading from "@/components/atoms/Loading";
+import Error from "@/components/atoms/Error";
+import { useQuery } from "@tanstack/react-query";
+import { fromSupabase, supabase } from "@/integrations/supabase/index.js";
 
 const markdownStyles = {
   h1: {
@@ -166,37 +171,32 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
 
 export default PatternTable;
 
-// Ensure the PatternTable component receives the setSelectedPattern prop
-const PatternColumn = ({ patterns, isLoading, error, expandedPattern, handleExpandClick, setSelectedPattern }) => {
-  return (
-    <div className="flex-1 bg-white border border-gray-300 rounded-lg m-2 flex flex-col items-start justify-start p-4 h-full">
-      <h2 className="text-black mb-4">Patterns</h2>
-      <Label className="text-gray-600 mb-2">Choose from pre-written patterns</Label>
-      <Separator className="mb-4" />
-      {isLoading ? (
-        <Loading />
-      ) : error ? (
-        <Error message={error.message} />
-      ) : (
-        <PatternTable
-          patterns={patterns}
-          expandedPattern={expandedPattern}
-          handleExpandClick={handleExpandClick}
-          setSelectedPattern={setSelectedPattern}
-        />
-      )}
-    </div>
-  );
-};
+const PatternColumn = ({ patterns, isLoading, error, expandedPattern, handleExpandClick, setSelectedPattern }) => (
+  <div className="flex-1 bg-white border border-gray-300 rounded-lg m-2 flex flex-col items-start justify-start p-4 h-full">
+    <h2 className="text-black mb-4">Patterns</h2>
+    <Label className="text-gray-600 mb-2">Choose from pre-written patterns</Label>
+    <Separator className="mb-4" />
+    {isLoading ? (
+      <Loading />
+    ) : error ? (
+      <Error message={error.message} />
+    ) : (
+      <PatternTable
+        patterns={patterns}
+        expandedPattern={expandedPattern}
+        handleExpandClick={handleExpandClick}
+        setSelectedPattern={setSelectedPattern}
+      />
+    )}
+  </div>
+);
 
-// Add a console log to check the patterns data being passed to the PatternColumn component
 const Index = () => {
   const { data: patterns, isLoading, error } = usePatterns();
   console.log("Patterns data in Index: ", patterns);
   // existing code...
 };
 
-// Add a console log to check the patterns data being fetched in the usePatterns hook
 export const usePatterns = () => useQuery({
   queryKey: ['Patterns'],
   queryFn: () => fromSupabase(supabase.from('Patterns').select('*')),
