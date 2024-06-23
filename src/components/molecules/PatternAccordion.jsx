@@ -20,6 +20,18 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+
+const markdownStyles = {
+  h1: { fontSize: "2em", fontWeight: "bold", marginBottom: "0.5em" },
+  h2: { fontSize: "1.5em", fontWeight: "bold", marginBottom: "0.5em" },
+  h3: { fontSize: "1.17em", fontWeight: "bold", marginBottom: "0.5em" },
+  p: { marginBottom: "1em" },
+  ul: { marginLeft: "1em", marginBottom: "1em" },
+  ol: { marginLeft: "1em", marginBottom: "1em" },
+  li: { marginBottom: "0.5em" },
+  a: { color: "black", textDecoration: "underline" },
+};
 
 const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
   const [currentPage, setCurrentPage] = React.useState(1);
