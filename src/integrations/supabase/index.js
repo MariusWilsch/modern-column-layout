@@ -185,7 +185,13 @@ export const useDeleteComment = () => {
 // Hooks for patterns table
 export const usePatterns = () => useQuery({
     queryKey: ['patterns'],
-    queryFn: () => fromSupabase(supabase.from('Patterns').select('*')),
+    queryFn: async () => {
+        const data = await fromSupabase(supabase.from('Patterns').select('*'));
+        return data.map(pattern => ({
+            ...pattern,
+            patterns: Array.isArray(pattern.patterns) ? pattern.patterns.join(' ') : pattern.patterns,
+        }));
+    },
 });
 
 export const usePattern = (id) => useQuery({
