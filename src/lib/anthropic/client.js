@@ -4,7 +4,7 @@ const anthropic = new Anthropic({
   apiKey: "my_api_key", // defaults to process.env["ANTHROPIC_API_KEY"]
 });
 
-async function call_claude(system_prompt: string, user_prompt: string) {
+async function call_claude(system_prompt, user_prompt) {
   const response = await anthropic.messages.create({
     model: "claude-3-5-sonnet-20240620",
     max_tokens: 1024,

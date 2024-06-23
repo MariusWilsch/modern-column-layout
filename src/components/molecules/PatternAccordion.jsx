@@ -49,10 +49,17 @@ const markdownStyles = {
   a: { color: "black", textDecoration: "underline" },
 };
 
-const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelectedPattern }) => {
+const PatternTable = ({
+  patterns,
+  expandedPattern,
+  handleExpandClick,
+  setSelectedPattern,
+}) => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [selectedCheckboxes, setSelectedCheckboxes] = React.useState([]);
-  
+
+  console.log(patterns);
+
   const itemsPerPage = 5;
 
   const handlePageChange = (page) => {
@@ -75,6 +82,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
   );
 
   const renderMarkdown = (markdown) => {
+    console.log(markdown);
     return (
       <ReactMarkdown
         components={{
@@ -133,18 +141,18 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
                     <DialogContent className="min-w-[60%] h-[60vh] overflow-auto p-4 bg-white text-black">
                       <DialogHeader>
                         <DialogTitle className="text-4xl mb-2">
-                          {pattern.file_name.replace(/_/g, ' ')}
+                          {pattern.file_name.replace(/_/g, " ")}
                         </DialogTitle>
                         <Separator className="my-4" />
                         <DialogDescription>
-                          {renderMarkdown(pattern.patterns || '')}
+                          {renderMarkdown(pattern.patterns || "")}
                         </DialogDescription>
                       </DialogHeader>
                     </DialogContent>
                   </Dialog>
                 </div>
               </TableCell>
-              <TableCell>{pattern.file_name.replace(/_/g, ' ')}</TableCell>
+              <TableCell>{pattern.file_name.replace(/_/g, " ")}</TableCell>
               <TableCell>
                 {pattern.patterns.split(" ").slice(0, 10).join(" ")}
               </TableCell>
@@ -165,7 +173,12 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
 export default PatternTable;
 
 // Ensure the PatternTable component receives the setSelectedPattern prop
-const PatternColumn = ({ patterns, expandedPattern, handleExpandClick, setSelectedPattern }) => {
+const PatternColumn = ({
+  patterns,
+  expandedPattern,
+  handleExpandClick,
+  setSelectedPattern,
+}) => {
   return (
     <PatternTable
       patterns={patterns}
