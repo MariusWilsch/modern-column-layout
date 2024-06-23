@@ -12,11 +12,9 @@ const Index = () => {
   const [expandedPattern, setExpandedPattern] = useState(null);
   const [selectedPattern, setSelectedPattern] = useState(null);
 
-  const handleSend = () => {
-    if (inputValue.trim() !== "") {
-      setMessages([...messages, inputValue]);
-      setInputValue("");
-    }
+  const handleSend = (response) => {
+    setMessages([...messages, { role: "user", content: inputValue }, { role: "assistant", content: response }]);
+    setInputValue("");
   };
 
   const handleExpandClick = (index) => {
@@ -32,6 +30,8 @@ const Index = () => {
             inputValue={inputValue}
             setInputValue={setInputValue}
             handleSend={handleSend}
+            patterns={patterns}
+            selectedPattern={selectedPattern}
           />
           <PatternColumn
             patterns={patterns}

@@ -1,10 +1,11 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
+import { call_claude } from "@/lib/anthropic/client";
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 import { toast } from "sonner";
 
-const MessageInput = ({ inputValue, setInputValue, handleSend, selectedPattern }) => (
+const MessageInput = ({ inputValue, setInputValue, handleSend, selectedPattern, patterns }) => (
   <div className="flex items-center w-full px-4 mb-4">
     <div className="relative flex-1">
       <Input
@@ -16,7 +17,7 @@ const MessageInput = ({ inputValue, setInputValue, handleSend, selectedPattern }
       <Button
         variant="outline"
         className="absolute right-0 top-0 h-full rounded-l-none"
-        onClick={() => {
+        onClick={async () => {
           if (!inputValue.trim()) {
             toast.error("Please add your input.", {
               style: {
@@ -36,7 +37,10 @@ const MessageInput = ({ inputValue, setInputValue, handleSend, selectedPattern }
               position: 'top-right',
             });
           } else {
-            handleSend();
+            const systemPrompt = patterns.find(pattern => pattern.id === selectedPattern).patterns.join("\n\n");
+            const userPrompt = inputValue;
+            const response = await call_claude(systemPrompt, userPrompt);
+            handleSend(response);
             toast("Success");
           }
         }}
