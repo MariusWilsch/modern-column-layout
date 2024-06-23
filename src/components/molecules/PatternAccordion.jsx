@@ -50,7 +50,8 @@ const markdownStyles = {
 
 const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelectedPattern }) => {
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [selectedCheckbox, setSelectedCheckbox] = React.useState(null);
+  const [selectedCheckboxes, setSelectedCheckboxes] = React.useState([]);
+  
   const itemsPerPage = 5;
 
   const handlePageChange = (page) => {
@@ -58,7 +59,13 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
   };
 
   const handleCheckboxChange = (patternId) => {
-    setSelectedCheckbox(patternId);
+    setSelectedCheckboxes((prevSelected) => {
+      if (prevSelected.includes(patternId)) {
+        return prevSelected.filter((id) => id !== patternId);
+      } else {
+        return [...prevSelected, patternId];
+      }
+    });
     setSelectedPattern(patternId);
   };
 
@@ -114,7 +121,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
               <TableCell>
                 <div className="flex items-center space-x-2">
                   <Checkbox
-                    checked={selectedCheckbox === pattern.id}
+                    checked={selectedCheckboxes.includes(pattern.id)}
                     onChange={() => handleCheckboxChange(pattern.id)}
                   />
                   <Dialog>
@@ -155,3 +162,15 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
 };
 
 export default PatternTable;
+
+// Ensure the PatternTable component receives the setSelectedPattern prop
+const PatternColumn = ({ patterns, expandedPattern, handleExpandClick, setSelectedPattern }) => {
+  return (
+    <PatternTable
+      patterns={patterns}
+      expandedPattern={expandedPattern}
+      handleExpandClick={handleExpandClick}
+      setSelectedPattern={setSelectedPattern}
+    />
+  );
+};
