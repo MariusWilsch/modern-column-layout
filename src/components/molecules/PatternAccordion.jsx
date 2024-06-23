@@ -23,13 +23,28 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 const markdownStyles = {
-  h1: { fontSize: "2em", fontWeight: "bold", marginBottom: "0.5em" },
-  h2: { fontSize: "1.5em", fontWeight: "bold", marginBottom: "0.5em" },
-  h3: { fontSize: "1.17em", fontWeight: "bold", marginBottom: "0.5em" },
-  p: { marginBottom: "1em" },
-  ul: { marginLeft: "1em", marginBottom: "1em" },
-  ol: { marginLeft: "1em", marginBottom: "1em" },
-  li: { marginBottom: "0.5em" },
+  h1: {
+    fontSize: "1.5em",
+    fontWeight: "bold",
+    marginBottom: "0.5em",
+    color: "black",
+  },
+  h2: {
+    fontSize: "1.25em",
+    fontWeight: "bold",
+    marginBottom: "0.5em",
+    color: "black",
+  },
+  h3: {
+    fontSize: "1.00em",
+    fontWeight: "bold",
+    marginBottom: "0.5em",
+    color: "black",
+  },
+  p: { marginBottom: "1em", color: "black" },
+  ul: { marginLeft: "1em", marginBottom: "1em", color: "black" },
+  ol: { marginLeft: "1em", marginBottom: "1em", color: "black" },
+  li: { marginBottom: "0.5em", color: "black" },
   a: { color: "black", textDecoration: "underline" },
 };
 
@@ -101,7 +116,9 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
                     </DialogTrigger>
                     <DialogContent className="min-w-[60%] h-[60vh] overflow-auto">
                       <DialogHeader>
-                        <DialogTitle>{pattern.file_name}</DialogTitle>
+                        <DialogTitle className="text-4xl mb-2">
+                          {pattern.file_name}
+                        </DialogTitle>
                         <DialogDescription>
                           {renderMarkdown(pattern.patterns)}
                         </DialogDescription>
