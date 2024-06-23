@@ -50,6 +50,7 @@ const markdownStyles = {
 
 const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
   const [currentPage, setCurrentPage] = React.useState(1);
+  const [selectedCheckbox, setSelectedCheckbox] = React.useState(null);
   const itemsPerPage = 5;
 
   const handlePageChange = (page) => {
@@ -107,7 +108,10 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
             <TableRow key={pattern.id}>
               <TableCell>
                 <div className="flex items-center space-x-2">
-                  <Checkbox />
+                  <Checkbox
+                    checked={selectedCheckbox === pattern.id}
+                    onChange={() => setSelectedCheckbox(pattern.id)}
+                  />
                   <Dialog>
                     <DialogTrigger asChild>
                       <Button variant="ghost" size="icon">
