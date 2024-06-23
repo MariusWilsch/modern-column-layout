@@ -117,7 +117,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
                     <DialogContent className="min-w-[60%] h-[60vh] overflow-auto">
                       <DialogHeader>
                         <DialogTitle className="text-4xl mb-2">
-                          {pattern.file_name}
+                          {pattern.file_name.replace(/_/g, ' ')}
                         </DialogTitle>
                         <DialogDescription>
                           {renderMarkdown(pattern.patterns)}
@@ -127,7 +127,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
                   </Dialog>
                 </div>
               </TableCell>
-              <TableCell>{pattern.file_name}</TableCell>
+              <TableCell>{pattern.file_name.replace(/_/g, ' ')}</TableCell>
               <TableCell>
                 {pattern.patterns.split(" ").slice(0, 10).join(" ")}
               </TableCell>
