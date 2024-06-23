@@ -37,7 +37,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
               <TableCell>
                 <Checkbox />
               </TableCell>
-              <TableCell>{pattern.name}</TableCell>
+              <TableCell>{pattern.file_name}</TableCell>
               <TableCell>
                 {pattern.patterns.split(" ").slice(0, 10).join(" ")}
               </TableCell>
