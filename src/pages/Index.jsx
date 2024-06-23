@@ -26,11 +26,11 @@ const Index = () => {
     <RootLayout>
       <div className="h-screen w-screen flex items-center justify-center bg-gray-100">
         <div className="flex w-[90%] h-5/6">
-          <ChatColumn
-            messages={messages}
+          <MessageInput
             inputValue={inputValue}
             setInputValue={setInputValue}
             handleSend={handleSend}
+            selectedPattern={selectedPattern}
           />
           <PatternColumn
             patterns={patterns}

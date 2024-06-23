@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 import { toast } from "sonner";
 
-const MessageInput = ({ inputValue, setInputValue, handleSend }) => (
+const MessageInput = ({ inputValue, setInputValue, handleSend, selectedPattern }) => (
   <div className="flex items-center w-full px-4 mb-4">
     <div className="relative flex-1">
       <Input
@@ -17,8 +17,19 @@ const MessageInput = ({ inputValue, setInputValue, handleSend }) => (
         variant="outline"
         className="absolute right-0 top-0 h-full rounded-l-none"
         onClick={() => {
-          handleSend();
-          toast("Success");
+          if (!selectedPattern) {
+            toast.error("Please choose a pattern first.", {
+              style: {
+                border: '1px solid red',
+                padding: '16px',
+                color: 'red',
+              },
+              position: 'top-right',
+            });
+          } else {
+            handleSend();
+            toast("Success");
+          }
         }}
       >
         <Send className="h-4 w-4" />
