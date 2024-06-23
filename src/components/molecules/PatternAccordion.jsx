@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { ChevronsUpDown } from "lucide-react";
+import { Eye } from "lucide-react";
 import { Pagination } from "@/components/ui/pagination";
 import {
   Dialog,
@@ -96,7 +96,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
                   <Dialog>
                     <DialogTrigger asChild>
                       <Button variant="ghost" size="icon">
-                        <ChevronsUpDown className="h-4 w-4" />
+                        <Eye className="h-4 w-4" />
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="min-w-[60%] h-[60vh] overflow-auto">
