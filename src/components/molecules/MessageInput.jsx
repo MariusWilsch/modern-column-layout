@@ -17,7 +17,16 @@ const MessageInput = ({ inputValue, setInputValue, handleSend, selectedPattern }
         variant="outline"
         className="absolute right-0 top-0 h-full rounded-l-none"
         onClick={() => {
-          if (!selectedPattern) {
+          if (!inputValue.trim()) {
+            toast.error("Please add your input.", {
+              style: {
+                border: '1px solid red',
+                padding: '16px',
+                color: 'red',
+              },
+              position: 'top-right',
+            });
+          } else if (!selectedPattern) {
             toast.error("Please choose a pattern first.", {
               style: {
                 border: '1px solid red',
