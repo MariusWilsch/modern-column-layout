@@ -57,6 +57,38 @@ const capitalizeFileName = (fileName) => {
   return fileName.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
 };
 
+const renderMarkdown = (markdown) => {
+  const cleanedMarkdown = markdown.replace(/# IDENTITY and PURPOSE/g, '');
+  return (
+    <ReactMarkdown
+      components={{
+        h1: ({ node, ...props }) => (
+          <h1 style={markdownStyles.h1} {...props} />
+        ),
+        h2: ({ node, ...props }) => (
+          <h2 style={markdownStyles.h2} {...props} />
+        ),
+        h3: ({ node, ...props }) => (
+          <h3 style={markdownStyles.h3} {...props} />
+        ),
+        p: ({ node, ...props }) => <p style={markdownStyles.p} {...props} />,
+        ul: ({ node, ...props }) => (
+          <ul style={markdownStyles.ul} {...props} />
+        ),
+        ol: ({ node, ...props }) => (
+          <ol style={markdownStyles.ol} {...props} />
+        ),
+        li: ({ node, ...props }) => (
+          <li style={markdownStyles.li} {...props} />
+        ),
+        a: ({ node, ...props }) => <a style={markdownStyles.a} {...props} />,
+      }}
+    >
+      {cleanedMarkdown}
+    </ReactMarkdown>
+  );
+};
+
 const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelectedPattern }) => {
   console.log("Patterns data: ", patterns);
   const [selectedCheckbox, setSelectedCheckbox] = React.useState(null);
@@ -69,37 +101,6 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
         return patternId; // Select the new checkbox
       }
     });
-  };
-
-  const renderMarkdown = (markdown) => {
-    return (
-      <ReactMarkdown
-        components={{
-          h1: ({ node, ...props }) => (
-            <h1 style={markdownStyles.h1} {...props} />
-          ),
-          h2: ({ node, ...props }) => (
-            <h2 style={markdownStyles.h2} {...props} />
-          ),
-          h3: ({ node, ...props }) => (
-            <h3 style={markdownStyles.h3} {...props} />
-          ),
-          p: ({ node, ...props }) => <p style={markdownStyles.p} {...props} />,
-          ul: ({ node, ...props }) => (
-            <ul style={markdownStyles.ul} {...props} />
-          ),
-          ol: ({ node, ...props }) => (
-            <ol style={markdownStyles.ol} {...props} />
-          ),
-          li: ({ node, ...props }) => (
-            <li style={markdownStyles.li} {...props} />
-          ),
-          a: ({ node, ...props }) => <a style={markdownStyles.a} {...props} />,
-        }}
-      >
-        {markdown}
-      </ReactMarkdown>
-    );
   };
 
   return (
@@ -144,7 +145,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
               </TableCell>
               <TableCell>{capitalizeFileName(pattern.file_name)}</TableCell>
               <TableCell className="text-black">
-                {pattern.patterns.join(" ").split(" ").slice(0, 10).join(" ")}
+                {renderMarkdown(pattern.patterns.join(" ").split(" ").slice(0, 10).join(" "))}
               </TableCell>
             </TableRow>
           ))}
