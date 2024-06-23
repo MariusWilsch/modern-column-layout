@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { usePatterns } from "../integrations/supabase/index.js";
 import ChatColumn from "@/components/organisms/ChatColumn";
 import PatternColumn from "@/components/organisms/PatternColumn";
-
+import { useToast } from "@/components/ui/use-toast";
 
 const Index = () => {
   const [messages, setMessages] = useState([]);
@@ -12,7 +12,6 @@ const Index = () => {
   const [expandedPattern, setExpandedPattern] = useState(null);
   const [selectedPattern, setSelectedPattern] = useState(null);
   
-
   const { toast } = useToast();
 
   const handleSend = () => {
