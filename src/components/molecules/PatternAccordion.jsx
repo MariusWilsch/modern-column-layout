@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, ChevronsUpDown, Eye, Trash } from "lucide-react";
+import { ChevronsUpDown } from "lucide-react";
 import { Pagination } from "@/components/ui/pagination";
 import {
   Dialog,
@@ -43,22 +43,16 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
       <Table>
         <TableHeader>
           <TableRow>
+            <TableHead className="w-[50px]"></TableHead>
             <TableHead>Pattern Name</TableHead>
             <TableHead>Short Summary</TableHead>
-            <TableHead className="w-[150px]">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {paginatedPatterns.map((pattern, index) => (
             <TableRow key={pattern.id}>
-              <TableCell>{pattern.file_name}</TableCell>
-              <TableCell>
-                {pattern.patterns.split(" ").slice(0, 10).join(" ")}
-              </TableCell>
               <TableCell className="flex space-x-2">
-                <Button variant="ghost" size="icon">
-                  <Eye className="h-4 w-4" />
-                </Button>
+                <Checkbox />
                 <Dialog>
                   <DialogTrigger asChild>
                     <Button variant="ghost" size="icon">
@@ -74,6 +68,10 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
                     </DialogHeader>
                   </DialogContent>
                 </Dialog>
+              </TableCell>
+              <TableCell>{pattern.file_name}</TableCell>
+              <TableCell>
+                {pattern.patterns.split(" ").slice(0, 10).join(" ")}
               </TableCell>
             </TableRow>
           ))}
