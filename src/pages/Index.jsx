@@ -13,6 +13,10 @@ const Index = () => {
   const { toast } = useToast();
 
   const handleSend = () => {
+    if (selectedPattern === null) {
+      toast({ description: "Please choose a pattern first." });
+      return;
+    }
     if (inputValue.trim() !== "") {
       setMessages([...messages, inputValue]);
       setInputValue("");
