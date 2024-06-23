@@ -10,6 +10,7 @@ const ChatColumn = ({ messages, inputValue, setInputValue, handleSend }) => (
       <h2 className="text-black mb-2">Chat Input</h2>
       <Label className="text-gray-600 mb-2">Type your input here...</Label>
       <Separator className="mb-4 w-full" />
+      <Separator className="mb-4 w-full" />
       <div className="flex flex-col space-y-2 w-full">
         {messages.map((message, index) => (
           <Message key={index} message={message} />
