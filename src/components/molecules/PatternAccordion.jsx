@@ -130,14 +130,14 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
                         <Eye className="h-4 w-4" />
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="min-w-[60%] h-[60vh] overflow-auto">
+                    <DialogContent className="min-w-[60%] h-[60vh] overflow-auto p-4 bg-white text-black">
                       <DialogHeader>
                         <DialogTitle className="text-4xl mb-2">
                           {pattern.file_name.replace(/_/g, ' ')}
                         </DialogTitle>
                         <Separator className="my-4" />
                         <DialogDescription>
-                          {renderMarkdown(pattern.patterns)}
+                          {renderMarkdown(pattern.patterns || '')}
                         </DialogDescription>
                       </DialogHeader>
                     </DialogContent>
