@@ -12,11 +12,15 @@ const Index = () => {
   const [expandedPattern, setExpandedPattern] = useState(null);
   const [selectedPattern, setSelectedPattern] = useState(null);
   
+  const { toast } = useToast();
 
   const handleSend = () => {
     if (selectedPattern === null) {
-      toast.error("No Pattern Selected. Please choose a pattern first.", {
+      toast({
+        title: "No Pattern Selected",
+        description: "Please choose a pattern first.",
         position: "top-right",
+        status: "error",
       });
       return;
     }
