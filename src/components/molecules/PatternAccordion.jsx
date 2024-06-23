@@ -137,7 +137,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
                         </DialogTitle>
                         <Separator className="my-4" />
                         <DialogDescription>
-                          {renderMarkdown(pattern.patterns || '')}
+                          {renderMarkdown(pattern.patterns.join("\n\n") || '')}
                         </DialogDescription>
                       </DialogHeader>
                     </DialogContent>
@@ -146,7 +146,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
               </TableCell>
               <TableCell>{pattern.file_name.replace(/_/g, ' ')}</TableCell>
               <TableCell className="text-black">
-                {pattern.patterns.split(" ").slice(0, 10).join(" ")}
+                {pattern.patterns.join(" ").split(" ").slice(0, 10).join(" ")}
               </TableCell>
             </TableRow>
           ))}
