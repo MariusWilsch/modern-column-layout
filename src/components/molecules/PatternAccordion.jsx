@@ -1,5 +1,12 @@
 import React from "react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronsUpDown } from "lucide-react";
@@ -12,6 +19,7 @@ import {
   DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import ReactMarkdown from "react-markdown";
 
 const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -25,6 +33,10 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  const renderMarkdown = (markdown) => {
+    return <ReactMarkdown>{markdown}</ReactMarkdown>;
+  };
 
   return (
     <div className="w-full">
@@ -54,7 +66,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
                     <DialogHeader>
                       <DialogTitle>{pattern.file_name}</DialogTitle>
                       <DialogDescription>
-                        {pattern.patterns}
+                        {renderMarkdown(pattern.patterns)}
                       </DialogDescription>
                     </DialogHeader>
                   </DialogContent>
