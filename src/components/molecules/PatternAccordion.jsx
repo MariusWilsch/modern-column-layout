@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
 import { Pagination } from "@/components/ui/pagination";
+import { Separator } from "@/components/ui/separator";
 import {
   Dialog,
   DialogContent,
@@ -135,6 +136,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
                         <DialogTitle className="text-4xl mb-2">
                           {pattern.file_name.replace(/_/g, ' ')}
                         </DialogTitle>
+                        <Separator className="my-4" />
                         <DialogDescription>
                           {renderMarkdown(pattern.patterns)}
                         </DialogDescription>
