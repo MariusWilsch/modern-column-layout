@@ -21,6 +21,10 @@ const Index = () => {
         description: "Please choose a pattern first.",
         position: "top-right",
         status: "error",
+        style: {
+          backgroundColor: "black",
+          color: "white"
+        }
       });
       return;
     }
