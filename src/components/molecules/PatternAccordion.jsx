@@ -23,26 +23,20 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[50px]">
-              <Checkbox />
-            </TableHead>
             <TableHead>Pattern Name</TableHead>
             <TableHead>Short Summary</TableHead>
-            <TableHead className="w-[50px]">Expand</TableHead>
+            <TableHead className="w-[50px]">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {paginatedPatterns.map((pattern, index) => (
             <TableRow key={pattern.id}>
-              <TableCell>
-                <Checkbox />
-              </TableCell>
               <TableCell>{pattern.file_name}</TableCell>
               <TableCell>
                 {pattern.patterns.split(" ").slice(0, 10).join(" ")}
               </TableCell>
               <TableCell>
-                <Button variant="outline" onClick={() => handleExpandClick(index)}>
+                <Button onClick={() => handleExpandClick(index)}>
                   <ChevronsUpDown className="h-4 w-4" />
                 </Button>
               </TableCell>
