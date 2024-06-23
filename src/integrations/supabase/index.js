@@ -17,6 +17,8 @@ const fromSupabase = async (query) => {
     return data;
 };
 
+export { fromSupabase };
+
 /* supabase integration types
 
 ### Patterns
