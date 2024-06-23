@@ -10,7 +10,14 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
-import { Pagination } from "@/components/ui/pagination";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 import { Separator } from "@/components/ui/separator";
 import {
   Dialog,
@@ -159,12 +166,23 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
           ))}
         </TableBody>
       </Table>
-      <Pagination
-        totalItems={patterns.length}
-        itemsPerPage={itemsPerPage}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious href="#" onClick={() => handlePageChange(currentPage - 1)} />
+          </PaginationItem>
+          {[...Array(Math.ceil(patterns.length / itemsPerPage)).keys()].map((page) => (
+            <PaginationItem key={page}>
+              <PaginationLink href="#" onClick={() => handlePageChange(page + 1)}>
+                {page + 1}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+          <PaginationItem>
+            <PaginationNext href="#" onClick={() => handlePageChange(currentPage + 1)} />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </div>
   );
 };
