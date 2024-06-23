@@ -185,18 +185,18 @@ export const useDeleteComment = () => {
 // Hooks for patterns table
 export const usePatterns = () => useQuery({
     queryKey: ['patterns'],
-    queryFn: () => fromSupabase(supabase.from('patterns').select('*')),
+    queryFn: () => fromSupabase(supabase.from('Patterns').select('*')),
 });
 
 export const usePattern = (id) => useQuery({
     queryKey: ['patterns', id],
-    queryFn: () => fromSupabase(supabase.from('patterns').select('*').eq('id', id).single()),
+    queryFn: () => fromSupabase(supabase.from('Patterns').select('*').eq('id', id).single()),
 });
 
 export const useAddPattern = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (newPattern) => fromSupabase(supabase.from('patterns').insert([newPattern])),
+        mutationFn: (newPattern) => fromSupabase(supabase.from('Patterns').insert([newPattern])),
         onSuccess: () => {
             queryClient.invalidateQueries('patterns');
         },
@@ -206,7 +206,7 @@ export const useAddPattern = () => {
 export const useUpdatePattern = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (updatedPattern) => fromSupabase(supabase.from('patterns').update(updatedPattern).eq('id', updatedPattern.id)),
+        mutationFn: (updatedPattern) => fromSupabase(supabase.from('Patterns').update(updatedPattern).eq('id', updatedPattern.id)),
         onSuccess: () => {
             queryClient.invalidateQueries('patterns');
         },
@@ -216,7 +216,7 @@ export const useUpdatePattern = () => {
 export const useDeletePattern = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (id) => fromSupabase(supabase.from('patterns').delete().eq('id', id)),
+        mutationFn: (id) => fromSupabase(supabase.from('Patterns').delete().eq('id', id)),
         onSuccess: () => {
             queryClient.invalidateQueries('patterns');
         },
