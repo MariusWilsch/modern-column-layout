@@ -48,6 +48,15 @@ const fromSupabase = async (query) => {
 | content  | text   | string | true     |
 | created_at | timestamp | string | true |
 
+### patterns
+
+| name     | type   | format | required |
+|----------|--------|--------|----------|
+| id       | uuid   | string | true     |
+| name     | text   | string | true     |
+| description | text | string | true     |
+| created_at | timestamp | string | true |
+
 */
 
 // Hooks for users table
@@ -169,6 +178,47 @@ export const useDeleteComment = () => {
         mutationFn: (id) => fromSupabase(supabase.from('comments').delete().eq('id', id)),
         onSuccess: () => {
             queryClient.invalidateQueries('comments');
+        },
+    });
+};
+
+// Hooks for patterns table
+export const usePatterns = () => useQuery({
+    queryKey: ['patterns'],
+    queryFn: () => fromSupabase(supabase.from('patterns').select('*')),
+});
+
+export const usePattern = (id) => useQuery({
+    queryKey: ['patterns', id],
+    queryFn: () => fromSupabase(supabase.from('patterns').select('*').eq('id', id).single()),
+});
+
+export const useAddPattern = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (newPattern) => fromSupabase(supabase.from('patterns').insert([newPattern])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('patterns');
+        },
+    });
+};
+
+export const useUpdatePattern = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedPattern) => fromSupabase(supabase.from('patterns').update(updatedPattern).eq('id', updatedPattern.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('patterns');
+        },
+    });
+};
+
+export const useDeletePattern = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('patterns').delete().eq('id', id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('patterns');
         },
     });
 };
