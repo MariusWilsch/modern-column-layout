@@ -13,16 +13,6 @@ const Index = () => {
   const { toast } = useToast();
 
   const handleSend = () => {
-    if (!selectedPattern) {
-      toast({
-        title: "Please choose a pattern first.",
-        style: {
-          border: "1px solid red",
-        },
-      });
-      return;
-    }
-
     if (inputValue.trim() !== "") {
       setMessages([...messages, inputValue]);
       setInputValue("");
