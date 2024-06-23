@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { usePatterns } from "../integrations/supabase/index.js";
 import ChatColumn from "@/components/organisms/ChatColumn";
 import PatternColumn from "@/components/organisms/PatternColumn";
-import MessageInput from "@/components/molecules/MessageInput";
+
 import RootLayout from "@/components/ui/sonner";
 
 const Index = () => {
@@ -27,11 +27,11 @@ const Index = () => {
     <RootLayout>
       <div className="h-screen w-screen flex items-center justify-center bg-gray-100">
         <div className="flex w-[90%] h-5/6">
-          <MessageInput
+          <ChatColumn
+            messages={messages}
             inputValue={inputValue}
             setInputValue={setInputValue}
             handleSend={handleSend}
-            selectedPattern={selectedPattern}
           />
           <PatternColumn
             patterns={patterns}
