@@ -55,14 +55,14 @@ const markdownStyles = {
 
 const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelectedPattern }) => {
   console.log("Patterns data: ", patterns);
-  const [selectedCheckboxes, setSelectedCheckboxes] = React.useState([]);
+  const [selectedCheckbox, setSelectedCheckbox] = React.useState(null);
 
   const handleCheckboxChange = (patternId) => {
-    setSelectedCheckboxes((prevSelected) => {
-      if (prevSelected.includes(patternId)) {
-        return prevSelected.filter((id) => id !== patternId);
+    setSelectedCheckbox((prevSelected) => {
+      if (prevSelected === patternId) {
+        return null; // Uncheck if the same checkbox is clicked
       } else {
-        return [...prevSelected, patternId];
+        return patternId; // Select the new checkbox
       }
     });
   };
@@ -114,7 +114,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
               <TableCell>
                 <div className="flex items-center space-x-2">
                   <Checkbox
-                    checked={selectedCheckboxes.includes(pattern.id)}
+                    checked={selectedCheckbox === pattern.id}
                     onCheckedChange={() => handleCheckboxChange(pattern.id)}
                   />
                   <Dialog>
