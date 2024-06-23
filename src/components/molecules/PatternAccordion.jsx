@@ -53,6 +53,10 @@ const markdownStyles = {
   a: { color: "black", textDecoration: "underline" },
 };
 
+const capitalizeFileName = (fileName) => {
+  return fileName.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
+};
+
 const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelectedPattern }) => {
   console.log("Patterns data: ", patterns);
   const [selectedCheckbox, setSelectedCheckbox] = React.useState(null);
@@ -127,7 +131,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
                       {console.log("Dialog pattern data: ", pattern)}
                       <DialogHeader>
                         <DialogTitle className="text-4xl mb-2">
-                          {pattern.file_name.replace(/_/g, ' ')}
+                          {capitalizeFileName(pattern.file_name)}
                         </DialogTitle>
                         <Separator className="my-4" />
                         <DialogDescription>
@@ -138,7 +142,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
                   </Dialog>
                 </div>
               </TableCell>
-              <TableCell>{pattern.file_name.replace(/_/g, ' ')}</TableCell>
+              <TableCell>{capitalizeFileName(pattern.file_name)}</TableCell>
               <TableCell className="text-black">
                 {pattern.patterns.join(" ").split(" ").slice(0, 10).join(" ")}
               </TableCell>
