@@ -10,7 +10,6 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
-import { Pagination } from "@/components/ui/pagination";
 import { Separator } from "@/components/ui/separator";
 import {
   Dialog,
@@ -22,6 +21,11 @@ import {
 } from "@/components/ui/dialog";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { Label } from "@/components/ui/label";
+import Loading from "@/components/atoms/Loading";
+import Error from "@/components/atoms/Error";
+import { useQuery } from "@tanstack/react-query";
+import { fromSupabase, supabase } from "@/integrations/supabase/index.js";
 
 const markdownStyles = {
   h1: {
@@ -49,37 +53,30 @@ const markdownStyles = {
   a: { color: "black", textDecoration: "underline" },
 };
 
+const capitalizeFileName = (fileName) => {
+  return fileName
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
 const PatternTable = ({
   patterns,
   expandedPattern,
   handleExpandClick,
   setSelectedPattern,
 }) => {
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const [selectedCheckboxes, setSelectedCheckboxes] = React.useState([]);
-
-  console.log(patterns);
-
-  const itemsPerPage = 5;
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
+  console.log("Patterns data: ", patterns);
+  const [selectedCheckbox, setSelectedCheckbox] = React.useState(null);
 
   const handleCheckboxChange = (patternId) => {
-    setSelectedCheckboxes((prevSelected) => {
-      if (prevSelected.includes(patternId)) {
-        return prevSelected.filter((id) => id !== patternId);
+    setSelectedCheckbox((prevSelected) => {
+      if (prevSelected === patternId) {
+        return null; // Uncheck if the same checkbox is clicked
       } else {
-        return [...prevSelected, patternId];
+        return patternId; // Select the new checkbox
       }
     });
   };
-
-  const paginatedPatterns = patterns.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
 
   const renderMarkdown = (markdown) => {
     console.log(markdown);
@@ -114,7 +111,7 @@ const PatternTable = ({
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full overflow-y-auto">
       <Table>
         <TableHeader>
           <TableRow>
@@ -124,12 +121,12 @@ const PatternTable = ({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {paginatedPatterns.map((pattern, index) => (
+          {patterns.map((pattern, index) => (
             <TableRow key={pattern.id}>
               <TableCell>
                 <div className="flex items-center space-x-2">
                   <Checkbox
-                    checked={selectedCheckboxes.includes(pattern.id)}
+                    checked={selectedCheckbox === pattern.id}
                     onCheckedChange={() => handleCheckboxChange(pattern.id)}
                   />
                   <Dialog>
@@ -139,9 +136,10 @@ const PatternTable = ({
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="min-w-[60%] h-[60vh] overflow-auto p-4 bg-white text-black">
+                      {console.log("Dialog pattern data: ", pattern)}
                       <DialogHeader>
                         <DialogTitle className="text-4xl mb-2">
-                          {pattern.file_name.replace(/_/g, " ")}
+                          {capitalizeFileName(pattern.file_name)}
                         </DialogTitle>
                         <Separator className="my-4" />
                         <DialogDescription>
@@ -152,7 +150,7 @@ const PatternTable = ({
                   </Dialog>
                 </div>
               </TableCell>
-              <TableCell>{pattern.file_name.replace(/_/g, " ")}</TableCell>
+              <TableCell>{capitalizeFileName(pattern.file_name)}</TableCell>
               <TableCell className="text-black">
                 {pattern.patterns.join(" ").split(" ").slice(0, 10).join(" ")}
               </TableCell>
@@ -160,31 +158,52 @@ const PatternTable = ({
           ))}
         </TableBody>
       </Table>
-      <Pagination
-        totalItems={patterns.length}
-        itemsPerPage={itemsPerPage}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
     </div>
   );
 };
 
 export default PatternTable;
 
-// Ensure the PatternTable component receives the setSelectedPattern prop
 const PatternColumn = ({
   patterns,
+  isLoading,
+  error,
   expandedPattern,
   handleExpandClick,
   setSelectedPattern,
-}) => {
-  return (
-    <PatternTable
-      patterns={patterns}
-      expandedPattern={expandedPattern}
-      handleExpandClick={handleExpandClick}
-      setSelectedPattern={setSelectedPattern}
-    />
-  );
+}) => (
+  <div className="flex-1 bg-white border border-gray-300 rounded-lg m-2 flex flex-col items-start justify-start p-4 h-full">
+    <h2 className="text-black mb-4">Patterns</h2>
+    <Label className="text-gray-600 mb-2">
+      Choose from pre-written patterns
+    </Label>
+    <Separator className="mb-4" />
+    {isLoading ? (
+      <Loading />
+    ) : error ? (
+      <Error message={error.message} />
+    ) : (
+      <PatternTable
+        patterns={patterns}
+        expandedPattern={expandedPattern}
+        handleExpandClick={handleExpandClick}
+        setSelectedPattern={setSelectedPattern}
+      />
+    )}
+  </div>
+);
+
+const Index = () => {
+  const { data: patterns, isLoading, error } = usePatterns();
+  console.log("Patterns data in Index: ", patterns);
+  // existing code...
 };
+
+export const usePatterns = () =>
+  useQuery({
+    queryKey: ["Patterns"],
+    queryFn: () => fromSupabase(supabase.from("Patterns").select("*")),
+    onSuccess: (data) => {
+      console.log("Fetched patterns data: ", data);
+    },
+  });
