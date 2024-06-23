@@ -97,6 +97,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
       <Table>
         <TableHeader>
           <TableRow>
+            <TableHead>Actions</TableHead>
             <TableHead className="w-[50px]"></TableHead>
             <TableHead>Pattern Name</TableHead>
             <TableHead>Short Summary</TableHead>
