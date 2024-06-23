@@ -2,7 +2,7 @@ import React from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ChevronUpDown } from "lucide-react";
 import { Pagination } from "@/components/ui/pagination";
 
 const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
@@ -43,7 +43,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
               </TableCell>
               <TableCell>
                 <Button variant="outline" onClick={() => handleExpandClick(index)}>
-                  <ChevronDown className="h-4 w-4" />
+                  <ChevronUpDown className="h-4 w-4" />
                 </Button>
               </TableCell>
             </TableRow>
