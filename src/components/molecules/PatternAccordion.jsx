@@ -145,7 +145,7 @@ const PatternTable = ({
                         </DialogTitle>
                         <Separator className="my-4" />
                         <DialogDescription>
-                          {renderMarkdown(pattern.patterns || "")}
+                          {renderMarkdown(pattern.patterns.join("\n\n") || "")}
                         </DialogDescription>
                       </DialogHeader>
                     </DialogContent>
@@ -153,8 +153,8 @@ const PatternTable = ({
                 </div>
               </TableCell>
               <TableCell>{pattern.file_name.replace(/_/g, " ")}</TableCell>
-              <TableCell>
-                {pattern.patterns.split(" ").slice(0, 10).join(" ")}
+              <TableCell className="text-black">
+                {pattern.patterns.join(" ").split(" ").slice(0, 10).join(" ")}
               </TableCell>
             </TableRow>
           ))}
