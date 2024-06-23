@@ -145,7 +145,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
                 </div>
               </TableCell>
               <TableCell>{pattern.file_name.replace(/_/g, ' ')}</TableCell>
-              <TableCell>
+              <TableCell className="text-black">
                 {pattern.patterns.split(" ").slice(0, 10).join(" ")}
               </TableCell>
             </TableRow>
