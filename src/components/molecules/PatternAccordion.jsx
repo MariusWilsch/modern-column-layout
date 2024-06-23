@@ -90,23 +90,25 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
         <TableBody>
           {paginatedPatterns.map((pattern, index) => (
             <TableRow key={pattern.id}>
-              <TableCell className="flex space-x-2">
-                <Checkbox />
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                      <ChevronsUpDown className="h-4 w-4" />
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="min-w-[60%] h-[60vh] overflow-auto">
-                    <DialogHeader>
-                      <DialogTitle>{pattern.file_name}</DialogTitle>
-                      <DialogDescription>
-                        {renderMarkdown(pattern.patterns)}
-                      </DialogDescription>
-                    </DialogHeader>
-                  </DialogContent>
-                </Dialog>
+              <TableCell>
+                <div className="flex items-center space-x-2">
+                  <Checkbox />
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="ghost" size="icon">
+                        <ChevronsUpDown className="h-4 w-4" />
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="min-w-[60%] h-[60vh] overflow-auto">
+                      <DialogHeader>
+                        <DialogTitle>{pattern.file_name}</DialogTitle>
+                        <DialogDescription>
+                          {renderMarkdown(pattern.patterns)}
+                        </DialogDescription>
+                      </DialogHeader>
+                    </DialogContent>
+                  </Dialog>
+                </div>
               </TableCell>
               <TableCell>{pattern.file_name}</TableCell>
               <TableCell>
