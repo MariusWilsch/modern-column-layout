@@ -57,9 +57,6 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
               </TableCell>
               <TableCell className="flex space-x-2">
                 <Button variant="ghost" size="icon">
-                  <Trash className="h-4 w-4" />
-                </Button>
-                <Button variant="ghost" size="icon">
                   <Eye className="h-4 w-4" />
                 </Button>
                 <Dialog>
