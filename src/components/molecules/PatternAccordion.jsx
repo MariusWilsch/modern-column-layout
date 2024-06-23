@@ -67,7 +67,6 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelecte
         return [...prevSelected, patternId];
       }
     });
-    setSelectedPattern(patternId);
   };
 
   const paginatedPatterns = patterns.slice(
