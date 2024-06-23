@@ -48,13 +48,18 @@ const markdownStyles = {
   a: { color: "black", textDecoration: "underline" },
 };
 
-const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
+const PatternTable = ({ patterns, expandedPattern, handleExpandClick, setSelectedPattern }) => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [selectedCheckbox, setSelectedCheckbox] = React.useState(null);
   const itemsPerPage = 5;
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
+  };
+
+  const handleCheckboxChange = (patternId) => {
+    setSelectedCheckbox(patternId);
+    setSelectedPattern(patternId);
   };
 
   const paginatedPatterns = patterns.slice(
@@ -110,7 +115,7 @@ const PatternTable = ({ patterns, expandedPattern, handleExpandClick }) => {
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     checked={selectedCheckbox === pattern.id}
-                    onChange={() => setSelectedCheckbox(pattern.id)}
+                    onChange={() => handleCheckboxChange(pattern.id)}
                   />
                   <Dialog>
                     <DialogTrigger asChild>
