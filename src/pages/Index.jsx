@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { toast } from "sonner";
 import { usePatterns } from "../integrations/supabase/index.js";
 import ChatColumn from "@/components/organisms/ChatColumn";
 import PatternColumn from "@/components/organisms/PatternColumn";
@@ -11,21 +11,12 @@ const Index = () => {
   const { data: patterns, isLoading, error } = usePatterns();
   const [expandedPattern, setExpandedPattern] = useState(null);
   const [selectedPattern, setSelectedPattern] = useState(null);
-  const { toast } = useToast();
+  
 
   const handleSend = () => {
     if (selectedPattern === null) {
-      toast({
-        title: "No Pattern Selected",
-        description: "Please choose a pattern first.",
+      toast.error("No Pattern Selected. Please choose a pattern first.", {
         position: "top-right",
-        duration: 5000,
-        render: () => (
-          <Alert>
-            <AlertTitle>No Pattern Selected</AlertTitle>
-            <AlertDescription>Please choose a pattern first.</AlertDescription>
-          </Alert>
-        ),
       });
       return;
     }
